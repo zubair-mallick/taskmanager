@@ -81,11 +81,11 @@ function App() {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-      <div className="container mx-auto px-4 py-8 max-w-5xl">
-        <header className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-800 mb-2">📝 Task Manager</h1>
-          <p className="text-gray-600">Organize your tasks efficiently</p>
+    <div className="min-h-screen bg-slate-100">
+      <div className="max-w-4xl mx-auto px-4 py-6">
+        <header className="bg-white border-b-4 border-indigo-600 rounded-t-lg p-6 mb-6">
+          <h1 className="text-2xl font-bold text-slate-800 tracking-tight">Task Manager</h1>
+          <p className="text-slate-600 text-sm mt-1">Keep track of your daily tasks</p>
         </header>
 
         <TaskForm 
@@ -103,11 +103,13 @@ function App() {
           onPriorityFilterChange={setPriorityFilter}
         />
 
-        <div className="mb-4">
-          <p className="text-sm text-gray-600">
-            Showing {filteredTasks.length} of {tasks.length} tasks
-          </p>
-        </div>
+        {tasks.length > 0 && (
+          <div className="mb-3 px-1">
+            <span className="text-xs font-semibold text-slate-700 bg-slate-200 px-3 py-1 rounded-full">
+              {filteredTasks.length} / {tasks.length} task{tasks.length !== 1 ? 's' : ''}
+            </span>
+          </div>
+        )}
 
         <TaskList
           tasks={filteredTasks}

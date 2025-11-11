@@ -11,8 +11,9 @@ interface TaskListProps {
 export default function TaskList({ tasks, onToggleComplete, onDelete, onEdit }: TaskListProps) {
   if (tasks.length === 0) {
     return (
-      <div className="bg-white shadow-md rounded-lg p-8 text-center">
-        <p className="text-gray-500 text-lg">No tasks found. Add a new task to get started!</p>
+      <div className="bg-white rounded-lg shadow-sm border-2 border-dashed border-slate-300 p-12 text-center">
+        <p className="text-slate-500 font-medium">No tasks found</p>
+        <p className="text-slate-400 text-sm mt-1">Create a new task to get started</p>
       </div>
     );
   }

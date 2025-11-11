@@ -14,6 +14,12 @@ export default function TaskForm({ onSubmit, editingTask, onCancel }: TaskFormPr
   const [dueDate, setDueDate] = useState('');
   const [titleError, setTitleError] = useState('');
 
+  // Get today's date in YYYY-MM-DD format for min date validation
+  const getTodayDate = () => {
+    const today = new Date();
+    return today.toISOString().split('T')[0];
+  };
+
   // Populate form when editing
   useEffect(() => {
     if (editingTask) {
@@ -58,13 +64,13 @@ export default function TaskForm({ onSubmit, editingTask, onCancel }: TaskFormPr
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white shadow-md rounded-lg p-6 mb-6">
-      <h2 className="text-2xl font-bold mb-4 text-gray-800">
+    <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-sm border-l-4 border-indigo-500 p-5 mb-5">
+      <h2 className="text-lg font-bold mb-4 text-slate-800 uppercase tracking-wide text-sm">
         {editingTask ? 'Edit Task' : 'Create New Task'}
       </h2>
 
       <div className="mb-4">
-        <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor="title" className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wider">
           Title <span className="text-red-500">*</span>
         </label>
         <input
@@ -75,38 +81,38 @@ export default function TaskForm({ onSubmit, editingTask, onCancel }: TaskFormPr
             setTitle(e.target.value);
             setTitleError('');
           }}
-          className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-            titleError ? 'border-red-500' : 'border-gray-300'
+          className={`w-full px-4 py-2.5 border-2 rounded-lg focus:outline-none focus:border-indigo-500 ${
+            titleError ? 'border-red-400' : 'border-slate-300'
           }`}
-          placeholder="Enter task title"
+          placeholder="e.g., Complete project documentation"
         />
         {titleError && <p className="text-red-500 text-sm mt-1">{titleError}</p>}
       </div>
 
       <div className="mb-4">
-        <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
-          Description
+        <label htmlFor="description" className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wider">
+          Description (Optional)
         </label>
         <textarea
           id="description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full px-4 py-2.5 border-2 border-slate-300 rounded-lg focus:outline-none focus:border-indigo-500"
           rows={3}
-          placeholder="Enter task description (optional)"
+          placeholder="Add more details..."
         />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
         <div>
-          <label htmlFor="priority" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="priority" className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wider">
             Priority
           </label>
           <select
             id="priority"
             value={priority}
             onChange={(e) => setPriority(e.target.value as Priority)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2.5 border-2 border-slate-300 rounded-lg focus:outline-none focus:border-indigo-500 bg-white"
           >
             <option value="Low">Low</option>
             <option value="Medium">Medium</option>
@@ -115,31 +121,32 @@ export default function TaskForm({ onSubmit, editingTask, onCancel }: TaskFormPr
         </div>
 
         <div>
-          <label htmlFor="dueDate" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="dueDate" className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wider">
             Due Date
           </label>
           <input
-            type="date"
-            id="dueDate"
-            value={dueDate}
-            onChange={(e) => setDueDate(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          type="date"
+          id="dueDate"
+          value={dueDate}
+          onChange={(e) => setDueDate(e.target.value)}
+          min={getTodayDate()}
+          className="w-full px-4 py-2.5 border-2 border-slate-300 rounded-lg focus:outline-none focus:border-indigo-500"
           />
         </div>
       </div>
 
-      <div className="flex gap-2">
+      <div className="flex gap-3 pt-2">
         <button
           type="submit"
-          className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
+          className="bg-indigo-600 text-white px-6 py-2.5 rounded-lg hover:bg-indigo-700 font-semibold text-sm uppercase tracking-wide transition-colors"
         >
-          {editingTask ? 'Update Task' : 'Add Task'}
+          {editingTask ? 'Update' : 'Add Task'}
         </button>
         {editingTask && (
           <button
             type="button"
             onClick={handleCancel}
-            className="bg-gray-400 text-white px-4 py-2 rounded-md hover:bg-gray-500 transition-colors"
+            className="bg-slate-200 text-slate-700 px-6 py-2.5 rounded-lg hover:bg-slate-300 font-semibold text-sm uppercase tracking-wide transition-colors"
           >
             Cancel
           </button>

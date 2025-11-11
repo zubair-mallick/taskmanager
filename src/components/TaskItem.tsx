@@ -9,9 +9,9 @@ interface TaskItemProps {
 
 export default function TaskItem({ task, onToggleComplete, onDelete, onEdit }: TaskItemProps) {
   const priorityColors = {
-    Low: 'bg-green-100 text-green-800 border-green-300',
-    Medium: 'bg-yellow-100 text-yellow-800 border-yellow-300',
-    High: 'bg-red-100 text-red-800 border-red-300',
+    Low: 'bg-emerald-100 text-emerald-800',
+    Medium: 'bg-amber-100 text-amber-800',
+    High: 'bg-rose-100 text-rose-800',
   };
 
   const handleDelete = () => {
@@ -32,10 +32,10 @@ export default function TaskItem({ task, onToggleComplete, onDelete, onEdit }: T
 
   return (
     <div
-      className={`bg-white shadow-md rounded-lg p-4 border-l-4 ${
+      className={`bg-white rounded-lg shadow-sm border-l-4 p-4 transition-all ${
         task.status === 'Completed'
-          ? 'border-green-500 bg-gray-50 opacity-75'
-          : 'border-blue-500'
+          ? 'border-slate-400 opacity-60'
+          : 'border-indigo-500'
       }`}
     >
       <div className="flex items-start justify-between">
@@ -48,18 +48,18 @@ export default function TaskItem({ task, onToggleComplete, onDelete, onEdit }: T
           />
           <div className="flex-1">
             <h3
-              className={`text-lg font-semibold ${
+              className={`text-base font-semibold ${
                 task.status === 'Completed'
-                  ? 'line-through text-gray-500'
-                  : 'text-gray-800'
+                  ? 'line-through text-slate-500'
+                  : 'text-slate-800'
               }`}
             >
               {task.title}
             </h3>
             {task.description && (
               <p
-                className={`text-sm mt-1 ${
-                  task.status === 'Completed' ? 'text-gray-400' : 'text-gray-600'
+                className={`text-sm mt-2 leading-relaxed ${
+                  task.status === 'Completed' ? 'text-slate-400' : 'text-slate-600'
                 }`}
               >
                 {task.description}
@@ -67,23 +67,14 @@ export default function TaskItem({ task, onToggleComplete, onDelete, onEdit }: T
             )}
             <div className="flex flex-wrap gap-2 mt-3">
               <span
-                className={`px-2 py-1 text-xs font-semibold rounded border ${
+                className={`px-2.5 py-1 text-xs font-bold rounded-full ${
                   priorityColors[task.priority]
                 }`}
               >
-                {task.priority}
+                {task.priority.toUpperCase()}
               </span>
-              <span className="px-2 py-1 text-xs bg-gray-100 text-gray-700 rounded">
-                📅 {formatDate(task.dueDate)}
-              </span>
-              <span
-                className={`px-2 py-1 text-xs rounded ${
-                  task.status === 'Completed'
-                    ? 'bg-green-100 text-green-700'
-                    : 'bg-blue-100 text-blue-700'
-                }`}
-              >
-                {task.status}
+              <span className="px-2.5 py-1 text-xs bg-slate-100 text-slate-700 rounded-full font-medium">
+                {formatDate(task.dueDate)}
               </span>
             </div>
           </div>
@@ -92,14 +83,14 @@ export default function TaskItem({ task, onToggleComplete, onDelete, onEdit }: T
         <div className="flex gap-2 ml-4">
           <button
             onClick={() => onEdit(task)}
-            className="px-3 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+            className="px-3 py-1.5 text-xs bg-indigo-50 text-indigo-700 rounded-lg hover:bg-indigo-100 font-bold uppercase tracking-wider transition-colors"
             title="Edit task"
           >
             Edit
           </button>
           <button
             onClick={handleDelete}
-            className="px-3 py-1 text-sm bg-red-500 text-white rounded hover:bg-red-600 transition-colors"
+            className="px-3 py-1.5 text-xs bg-rose-50 text-rose-700 rounded-lg hover:bg-rose-100 font-bold uppercase tracking-wider transition-colors"
             title="Delete task"
           >
             Delete
