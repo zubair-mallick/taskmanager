@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Task, Priority } from '../types/Task';
+import type { Task, Priority } from '../types/Task';
 
 interface TaskFormProps {
   onSubmit: (task: Omit<Task, 'id' | 'createdAt' | 'status'>) => void;

@@ -1,4 +1,4 @@
-import { Priority } from '../types/Task';
+import type { Priority } from '../types/Task';
 
 interface TaskFilterProps {
   searchQuery: string;
